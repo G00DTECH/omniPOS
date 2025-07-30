@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal POS System with Payments - Demo</title>
+    <link rel="stylesheet" href="pos-styles.css">
+    <link rel="stylesheet" href="pos-payment-ui.css">
+    <style>
+        /* Demo page specific styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .demo-header {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .demo-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            font-weight: 800;
+        }
+
+        .demo-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .demo-content {
+            padding: 40px;
+        }
+
+        .demo-section {
+            margin-bottom: 60px;
+        }
+
+        .demo-section h2 {
+            font-size: 1.8rem;
+            color: #1f2937;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3b82f6;
+            display: inline-block;
+        }
+
+        .demo-section p {
+            color: #6b7280;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .product-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #e2e8f0, #cbd5e1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #64748b;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #3b82f6;
+            margin-bottom: 16px;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        .category-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .category-item {
+            text-align: center;
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .integration-example {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 24px;
+            border-radius: 12px;
+            margin-top: 24px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .code-comment {
+            color: #9ca3af;
+        }
+
+        .code-tag {
+            color: #f59e0b;
+        }
+
+        .code-attr {
+            color: #10b981;
+        }
+
+        .code-value {
+            color: #3b82f6;
+        }
+
+        .inventory-controls {
+            background: #f8fafc;
+            padding: 24px;
+            border-radius: 12px;
+            margin-top: 24px;
+        }
+
+        .control-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .control-group label {
+            min-width: 120px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .control-group input,
+        .control-group select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .control-group button {
+            padding: 8px 16px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .control-group button:hover {
+            background: #2563eb;
+        }
+
+        .demo-footer {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .demo-footer h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: white;
+        }
+
+        .demo-footer p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .demo-header {
+                padding: 30px 20px;
+            }
+
+            .demo-header h1 {
+                font-size: 2rem;
+            }
+
+            .demo-content {
+                padding: 30px 20px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .control-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .control-group label {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <!-- Header -->
+        <div class="demo-header">
+            <h1>Universal POS System with Payments</h1>
+            <p>A complete, website-agnostic point of sale system with payment processing, AI assistance, and admin dashboard. Integrates with any website using simple HTML data attributes!</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="demo-content">
+            <!-- Features Section -->
+            <div class="demo-section">
+                <h2>Key Features</h2>
+                <p>This POS system provides everything you need for e-commerce functionality with minimal integration effort.</p>
+                
+                <div class="features-list">
+                    <div class="feature-card">
+                        <h3>🏷️ Product Detection</h3>
+                        <p>Automatically detects products using HTML data attributes. No manual registration required.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📦 Inventory Management</h3>
+                        <p>Real-time inventory tracking with automatic stock updates and low stock warnings.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🛒 Shopping Cart</h3>
+                        <p>Full-featured shopping cart with quantity controls, item management, and persistent storage.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>💳 Payment Processing</h3>
+                        <p>Secure payment processing with Stripe, PayPal, Apple Pay, and Google Pay integration.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>💾 Local Storage</h3>
+                        <p>Persistent cart and inventory data using localStorage with optional external API sync.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📱 Mobile Responsive</h3>
+                        <p>Fully responsive design that works perfectly on desktop, tablet, and mobile devices.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Products -->
+            <div class="demo-section">
+                <h2>Sample Products</h2>
+                <p>Try adding these products to your cart. Notice how the inventory updates in real-time and prevents overselling.</p>
+                
+                <div class="products-grid">
+                    <!-- Electronics Category -->
+                    <div class="product-card pos-product" 
+                         data-pos-product="laptop-pro"
+                         data-pos-name="Professional Laptop"
+                         data-pos-price="1299.99"
+                         data-pos-inventory="5"
+                         data-pos-category="electronics"
+                         data-pos-description="High-performance laptop perfect for professionals and creatives"
+                         data-pos-sku="ELEC-LAP-001">
+                        <div class="product-image">💻</div>
+                        <div class="product-info">
+                            <div class="product-name">Professional Laptop</div>
+                            <div class="product-description">High-performance laptop perfect for professionals and creatives</div>
+                            <div class="product-price">$1,299.99</div>
+                            <div class="product-meta">
+                                <span>SKU: ELEC-LAP-001</span>
+                                <span>Electronics</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card pos-product"
+                         data-pos-product="smartphone-x"
+                         data-pos-name="Smartphone X"
+                         data-pos-price="899.99"
+                         data-pos-inventory="12"
+                         data-pos-category="electronics"
+                         data-pos-description="Latest smartphone with advanced camera and AI features"
+                         data-pos-sku="ELEC-PHN-002">
+                        <div class="product-image">📱</div>
+                        <div class="product-info">
+                            <div class="product-name">Smartphone X</div>
+                            <div class="product-description">Latest smartphone with advanced camera and AI features</div>
+                            <div class="product-price">$899.99</div>
+                            <div class="product-meta">
+                                <span>SKU: ELEC-PHN-002</span>
+                                <span>Electronics</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card pos-product"
+                         data-pos-product="headphones-pro"
+                         data-pos-name="Pro Headphones"
+                         data-pos-price="249.99"
+                         data-pos-inventory="8"
+                         data-pos-category="electronics"
+                         data-pos-description="Noise-canceling headphones with studio-quality sound"
+                         data-pos-sku="ELEC-AUD-003">
+                        <div class="product-image">🎧</div>
+                        <div class="product-info">
+                            <div class="product-name">Pro Headphones</div>
+                            <div class="product-description">Noise-canceling headphones with studio-quality sound</div>
+                            <div class="product-price">$249.99</div>
+                            <div class="product-meta">
+                                <span>SKU: ELEC-AUD-003</span>
+                                <span>Electronics</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Clothing Category -->
+                    <div class="product-card pos-product"
+                         data-pos-product="premium-hoodie"
+                         data-pos-name="Premium Hoodie"
+                         data-pos-price="79.99"
+                         data-pos-inventory="15"
+                         data-pos-category="clothing"
+                         data-pos-description="Comfortable premium cotton hoodie in various colors"
+                         data-pos-sku="CLTH-HDD-001">
+                        <div class="product-image">👕</div>
+                        <div class="product-info">
+                            <div class="product-name">Premium Hoodie</div>
+                            <div class="product-description">Comfortable premium cotton hoodie in various colors</div>
+                            <div class="product-price">$79.99</div>
+                            <div class="product-meta">
+                                <span>SKU: CLTH-HDD-001</span>
+                                <span>Clothing</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card pos-product"
+                         data-pos-product="designer-jeans"
+                         data-pos-name="Designer Jeans"
+                         data-pos-price="129.99"
+                         data-pos-inventory="20"
+                         data-pos-category="clothing"
+                         data-pos-description="Premium denim jeans with perfect fit and comfort"
+                         data-pos-sku="CLTH-JNS-002">
+                        <div class="product-image">👖</div>
+                        <div class="product-info">
+                            <div class="product-name">Designer Jeans</div>
+                            <div class="product-description">Premium denim jeans with perfect fit and comfort</div>
+                            <div class="product-price">$129.99</div>
+                            <div class="product-meta">
+                                <span>SKU: CLTH-JNS-002</span>
+                                <span>Clothing</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Limited Stock Items -->
+                    <div class="product-card pos-product"
+                         data-pos-product="limited-edition"
+                         data-pos-name="Limited Edition Watch"
+                         data-pos-price="499.99"
+                         data-pos-inventory="2"
+                         data-pos-category="accessories"
+                         data-pos-description="Exclusive limited edition smartwatch with premium materials"
+                         data-pos-sku="ACC-WTC-001">
+                        <div class="product-image">⌚</div>
+                        <div class="product-info">
+                            <div class="product-name">Limited Edition Watch</div>
+                            <div class="product-description">Exclusive limited edition smartwatch with premium materials</div>
+                            <div class="product-price">$499.99</div>
+                            <div class="product-meta">
+                                <span>SKU: ACC-WTC-001</span>
+                                <span>Accessories</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integration Example -->
+            <div class="demo-section">
+                <h2>Easy Integration</h2>
+                <p>Integrating the Universal POS system into your website is as simple as including the CSS/JS files and adding data attributes to your products.</p>
+                
+                <div class="integration-example">
+<span class="code-comment">&lt;!-- Include the POS system files --&gt;</span>
+<span class="code-tag">&lt;link</span> <span class="code-attr">rel=</span><span class="code-value">"stylesheet"</span> <span class="code-attr">href=</span><span class="code-value">"pos-styles.css"</span><span class="code-tag">&gt;</span>
+<span class="code-tag">&lt;link</span> <span class="code-attr">rel=</span><span class="code-value">"stylesheet"</span> <span class="code-attr">href=</span><span class="code-value">"pos-payment-ui.css"</span><span class="code-tag">&gt;</span>
+<span class="code-tag">&lt;script</span> <span class="code-attr">src=</span><span class="code-value">"pos-system.js"</span><span class="code-tag">&gt;&lt;/script&gt;</span>
+<span class="code-tag">&lt;script</span> <span class="code-attr">src=</span><span class="code-value">"pos-payments.js"</span><span class="code-tag">&gt;&lt;/script&gt;</span>
+
+<span class="code-comment">&lt;!-- Add data attributes to your products --&gt;</span>
+<span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-value">"product"</span> 
+     <span class="code-attr">data-pos-product=</span><span class="code-value">"unique-product-id"</span>
+     <span class="code-attr">data-pos-name=</span><span class="code-value">"Product Name"</span>
+     <span class="code-attr">data-pos-price=</span><span class="code-value">"99.99"</span>
+     <span class="code-attr">data-pos-inventory=</span><span class="code-value">"10"</span>
+     <span class="code-attr">data-pos-category=</span><span class="code-value">"electronics"</span>
+     <span class="code-attr">data-pos-sku=</span><span class="code-value">"PROD-001"</span><span class="code-tag">&gt;</span>
+  <span class="code-comment">&lt;!-- Your product content --&gt;</span>
+  <span class="code-tag">&lt;h3&gt;</span>Product Name<span class="code-tag">&lt;/h3&gt;</span>
+  <span class="code-tag">&lt;p&gt;</span>Product description<span class="code-tag">&lt;/p&gt;</span>
+  <span class="code-comment">&lt;!-- POS system will automatically add cart functionality --&gt;</span>
+<span class="code-tag">&lt;/div&gt;</span>
+
+<span class="code-comment">&lt;!-- Initialize with custom options (optional) --&gt;</span>
+<span class="code-tag">&lt;script&gt;</span>
+  window.universalPOS = new UniversalPOS({
+    currency: '$',
+    taxRate: 0.08,
+    shippingCost: 9.99,
+    apiEndpoint: '/api/checkout'
+  });
+<span class="code-tag">&lt;/script&gt;</span>
+                </div>
+            </div>
+
+            <!-- Live Controls -->
+            <div class="demo-section">
+                <h2>Live Demo Controls</h2>
+                <p>Use these controls to test the system's functionality and see how it handles different scenarios.</p>
+                
+                <div class="inventory-controls">
+                    <div class="control-group">
+                        <label for="product-select">Product:</label>
+                        <select id="product-select">
+                            <option value="laptop-pro">Professional Laptop</option>
+                            <option value="smartphone-x">Smartphone X</option>
+                            <option value="headphones-pro">Pro Headphones</option>
+                            <option value="premium-hoodie">Premium Hoodie</option>
+                            <option value="designer-jeans">Designer Jeans</option>
+                            <option value="limited-edition">Limited Edition Watch</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="inventory-input">Set Inventory:</label>
+                        <input type="number" id="inventory-input" min="0" max="999" value="10">
+                        <button onclick="updateInventory()">Update Stock</button>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Cart Actions:</label>
+                        <button onclick="clearCart()">Clear Cart</button>
+                        <button onclick="showCartData()">Show Cart Data</button>
+                        <button onclick="showInventoryData()">Show Inventory</button>
+                    </div>
+
+                    <div class="control-group">
+                        <label>System Controls:</label>
+                        <button onclick="enableNotifications()">Enable Notifications</button>
+                        <button onclick="disableNotifications()">Disable Notifications</button>
+                        <button onclick="rescanProducts()">Rescan Products</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Integration -->
+            <div class="demo-section">
+                <h2>Payment & API Integration</h2>
+                <p>The system integrates with major payment processors and your existing backend API for order processing, inventory sync, and customer management.</p>
+                
+                <div class="features-list">
+                    <div class="feature-card">
+                        <h3>🔄 Real-time Sync</h3>
+                        <p>Sync inventory and cart data with your backend systems in real-time.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>💳 Payment Processing</h3>
+                        <p>Accept payments via Stripe, PayPal, Apple Pay, and Google Pay with secure tokenization.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔐 Secure Checkout</h3>
+                        <p>PCI DSS compliant payment processing with no card data storage.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📈 Analytics</h3>
+                        <p>Track user behavior, cart abandonment, and sales metrics with the admin dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="demo-footer">
+            <h3>Ready to Get Started?</h3>
+            <p>The Universal POS System is production-ready and includes comprehensive error handling, validation, and accessibility features. Check the README.md file for complete integration instructions and API documentation.</p>
+        </div>
+    </div>
+
+    <!-- Include the POS System -->
+    <script src="pos-system.js"></script>
+    
+    <!-- Include Payment Integration -->
+    <script src="pos-payments.js"></script>
+    
+    <!-- Include AI Agent -->
+    <script src="pos-agent.js"></script>
+    
+    <!-- Demo Control Functions -->
+    <script>
+        // Demo control functions
+        function updateInventory() {
+            const productId = document.getElementById('product-select').value;
+            const newInventory = parseInt(document.getElementById('inventory-input').value);
+            
+            if (window.universalPOS) {
+                window.universalPOS.setInventory(productId, newInventory);
+                alert(`Updated ${productId} inventory to ${newInventory}`);
+            }
+        }
+
+        function clearCart() {
+            if (window.universalPOS) {
+                window.universalPOS.clearCart();
+                alert('Cart cleared successfully');
+            }
+        }
+
+        function showCartData() {
+            if (window.universalPOS) {
+                const cart = window.universalPOS.getCart();
+                const totals = window.universalPOS.calculateTotals();
+                console.log('Cart Data:', cart);
+                console.log('Totals:', totals);
+                alert(`Cart contains ${totals.itemCount} items worth $${totals.total.toFixed(2)}. Check console for details.`);
+            }
+        }
+
+        function showInventoryData() {
+            if (window.universalPOS) {
+                const inventory = window.universalPOS.getInventory();
+                console.log('Inventory Data:', inventory);
+                alert('Inventory data logged to console');
+            }
+        }
+
+        function enableNotifications() {
+            if (window.universalPOS) {
+                window.universalPOS.options.notifications = true;
+                alert('Notifications enabled');
+            }
+        }
+
+        function disableNotifications() {
+            if (window.universalPOS) {
+                window.universalPOS.options.notifications = false;
+                alert('Notifications disabled');
+            }
+        }
+
+        function rescanProducts() {
+            if (window.universalPOS) {
+                window.universalPOS.scanProducts();
+                alert('Products rescanned successfully');
+            }
+        }
+
+        // Event listeners for POS system events
+        document.addEventListener('pos:initialized', function() {
+            console.log('POS System initialized');
+        });
+
+        document.addEventListener('pos:item-added', function(e) {
+            console.log('Item added to cart:', e.detail);
+        });
+
+        document.addEventListener('pos:item-removed', function(e) {
+            console.log('Item removed from cart:', e.detail);
+        });
+
+        document.addEventListener('pos:checkout-started', function(e) {
+            console.log('Checkout started:', e.detail);
+        });
+
+        document.addEventListener('pos:checkout-completed', function(e) {
+            console.log('Checkout completed:', e.detail);
+        });
+
+        // Initialize the POS system with custom options
+        document.addEventListener('DOMContentLoaded', function() {
+            // The system auto-initializes, but you can customize it here
+            if (window.universalPOS) {
+                window.universalPOS.options.currency = '$';
+                window.universalPOS.options.taxRate = 0.08; // 8% tax
+                window.universalPOS.options.shippingCost = 9.99;
+                // window.universalPOS.options.apiEndpoint = '/api/checkout';
+            }
+        });
+    </script>
+</body>
+</html>

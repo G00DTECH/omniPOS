@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="pos-styles.css">
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Date picker for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Admin deployment specific styles */
+        .admin-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .admin-header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        
+        .admin-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Header for Standalone Deployment -->
+    <div class="admin-header">
+        <h1>🛍️ Universal POS Admin Dashboard</h1>
+        <p>Manage your store, inventory, orders, and analytics</p>
+    </div>
+
+    <div class="admin-container">
+        <!-- Sidebar Navigation -->
+        <nav class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>🛍️ POS Admin</h2>
+            </div>
+            
+            <ul class="admin-nav">
+                <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a></li>
+                <li><a href="#inventory" class="nav-link" data-section="inventory">
+                    <i class="fas fa-boxes"></i> Inventory
+                </a></li>
+                <li><a href="#analytics" class="nav-link" data-section="analytics">
+                    <i class="fas fa-chart-bar"></i> Analytics
+                </a></li>
+                <li><a href="#orders" class="nav-link" data-section="orders">
+                    <i class="fas fa-shopping-bag"></i> Orders
+                </a></li>
+                <li><a href="#settings" class="nav-link" data-section="settings">
+                    <i class="fas fa-cog"></i> Settings
+                </a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="admin-section active">
+                <h2>Dashboard Overview</h2>
+                
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-shopping-cart"></i>
+                        <div class="stat-info">
+                            <h3 id="total-orders">0</h3>
+                            <p>Total Orders</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <i class="fas fa-dollar-sign"></i>
+                        <div class="stat-info">
+                            <h3 id="total-revenue">$0.00</h3>
+                            <p>Total Revenue</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <i class="fas fa-box"></i>
+                        <div class="stat-info">
+                            <h3 id="total-products">0</h3>
+                            <p>Total Products</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div class="stat-info">
+                            <h3 id="low-stock-items">0</h3>
+                            <p>Low Stock Alerts</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <h3>Recent Orders</h3>
+                            <div id="recent-orders">
+                                <p>No recent orders found</p>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <h3>Top Products</h3>
+                            <div id="top-products">
+                                <p>No product data available</p>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <h3>Low Stock Items</h3>
+                            <div id="low-stock-alerts">
+                                <p>All products are well stocked</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inventory Section -->
+            <section id="inventory" class="admin-section">
+                <div class="section-header">
+                    <h2>Inventory Management</h2>
+                    <button class="btn btn-primary" onclick="openProductModal()">
+                        <i class="fas fa-plus"></i> Add Product
+                    </button>
+                </div>
+                
+                <div class="inventory-controls">
+                    <input type="text" id="product-search" placeholder="Search products..." class="search-input">
+                    <select id="category-filter" class="filter-select">
+                        <option value="">All Categories</option>
+                    </select>
+                    <select id="stock-filter" class="filter-select">
+                        <option value="">All Stock Levels</option>
+                        <option value="low">Low Stock</option>
+                        <option value="out">Out of Stock</option>
+                        <option value="good">Good Stock</option>
+                    </select>
+                </div>
+                
+                <div class="inventory-table-container">
+                    <table class="inventory-table">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable('name')">Product Name <i class="fas fa-sort"></i></th>
+                                <th onclick="sortTable('category')">Category <i class="fas fa-sort"></i></th>
+                                <th onclick="sortTable('price')">Price <i class="fas fa-sort"></i></th>
+                                <th onclick="sortTable('stock')">Stock <i class="fas fa-sort"></i></th>
+                                <th onclick="sortTable('sku')">SKU <i class="fas fa-sort"></i></th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventory-tbody">
+                            <!-- Products will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics" class="admin-section">
+                <h2>Sales Analytics</h2>
+                
+                <div class="analytics-controls">
+                    <div class="date-controls">
+                        <input type="text" id="date-range" placeholder="Select date range" class="date-picker">
+                        <select id="analytics-period" class="period-select">
+                            <option value="7">Last 7 days</option>
+                            <option value="30">Last 30 days</option>
+                            <option value="90">Last 90 days</option>
+                            <option value="365">Last year</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-secondary" onclick="exportAnalytics()">
+                        <i class="fas fa-download"></i> Export Data
+                    </button>
+                </div>
+                
+                <div class="analytics-grid">
+                    <div class="chart-container">
+                        <h3>Revenue Trend</h3>
+                        <canvas id="revenue-chart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Top Categories</h3>
+                        <canvas id="category-chart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Sales by Day</h3>
+                        <canvas id="daily-sales-chart"></canvas>
+                    </div>
+                    
+                    <div class="metrics-container">
+                        <h3>Key Metrics</h3>
+                        <div class="metrics-grid">
+                            <div class="metric-item">
+                                <span class="metric-label">Average Order Value</span>
+                                <span class="metric-value" id="avg-order-value">$0.00</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">Conversion Rate</span>
+                                <span class="metric-value" id="conversion-rate">0%</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">Total Customers</span>
+                                <span class="metric-value" id="total-customers">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders" class="admin-section">
+                <div class="section-header">
+                    <h2>Order Management</h2>
+                    <button class="btn btn-secondary" onclick="exportOrders()">
+                        <i class="fas fa-download"></i> Export Orders
+                    </button>
+                </div>
+                
+                <div class="orders-controls">
+                    <input type="text" id="order-search" placeholder="Search orders..." class="search-input">
+                    <select id="order-status-filter" class="filter-select">
+                        <option value="">All Statuses</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                        <option value="refunded">Refunded</option>
+                    </select>
+                    <input type="date" id="order-date-filter" class="date-input">
+                </div>
+                
+                <div class="orders-table-container">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th onclick="sortOrdersTable('id')">Order ID <i class="fas fa-sort"></i></th>
+                                <th onclick="sortOrdersTable('date')">Date <i class="fas fa-sort"></i></th>
+                                <th onclick="sortOrdersTable('customer')">Customer <i class="fas fa-sort"></i></th>
+                                <th onclick="sortOrdersTable('total')">Total <i class="fas fa-sort"></i></th>
+                                <th onclick="sortOrdersTable('status')">Status <i class="fas fa-sort"></i></th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-tbody">
+                            <!-- Orders will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="admin-section">
+                <h2>System Settings</h2>
+                
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>Store Configuration</h3>
+                        <form id="store-settings-form">
+                            <div class="form-group">
+                                <label for="store-name">Store Name</label>
+                                <input type="text" id="store-name" name="storeName" placeholder="Your Store Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="currency">Currency</label>
+                                <select id="currency" name="currency">
+                                    <option value="$">USD ($)</option>
+                                    <option value="€">EUR (€)</option>
+                                    <option value="£">GBP (£)</option>
+                                    <option value="¥">JPY (¥)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tax-rate">Tax Rate (%)</label>
+                                <input type="number" id="tax-rate" name="taxRate" min="0" max="100" step="0.01" placeholder="8.25">
+                            </div>
+                            <div class="form-group">
+                                <label for="shipping-cost">Default Shipping Cost</label>
+                                <input type="number" id="shipping-cost" name="shippingCost" min="0" step="0.01" placeholder="9.99">
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3>Payment Integration</h3>
+                        <form id="payment-settings-form">
+                            <div class="form-group">
+                                <label for="stripe-key">Stripe Publishable Key</label>
+                                <input type="text" id="stripe-key" name="stripeKey" placeholder="pk_test_...">
+                            </div>
+                            <div class="form-group">
+                                <label for="paypal-client-id">PayPal Client ID</label>
+                                <input type="text" id="paypal-client-id" name="paypalClientId" placeholder="Your PayPal Client ID">
+                            </div>
+                            <div class="form-group">
+                                <label for="api-endpoint">API Endpoint</label>
+                                <input type="url" id="api-endpoint" name="apiEndpoint" placeholder="https://your-api.com/checkout">
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3>Inventory Settings</h3>
+                        <form id="inventory-settings-form">
+                            <div class="form-group">
+                                <label for="low-stock-threshold">Low Stock Threshold</label>
+                                <input type="number" id="low-stock-threshold" name="lowStockThreshold" min="0" placeholder="10">
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="auto-reorder" name="autoReorder">
+                                    Enable Auto-Reorder Notifications
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="track-inventory" name="trackInventory" checked>
+                                    Track Inventory Levels
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h3>Data Management</h3>
+                        <div class="data-actions">
+                            <button class="btn btn-secondary" onclick="exportAllData()">
+                                <i class="fas fa-download"></i> Export All Data
+                            </button>
+                            <button class="btn btn-secondary" onclick="importData()">
+                                <i class="fas fa-upload"></i> Import Data
+                            </button>
+                            <button class="btn btn-warning" onclick="clearAllData()">
+                                <i class="fas fa-trash"></i> Clear All Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="settings-actions">
+                    <button class="btn btn-primary" onclick="saveAllSettings()">
+                        <i class="fas fa-save"></i> Save All Settings
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetSettings()">
+                        <i class="fas fa-undo"></i> Reset to Defaults
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeProductModal()">&times;</span>
+            <h2 id="modal-title">Add Product</h2>
+            <form id="product-form">
+                <div class="form-group">
+                    <label for="product-name">Product Name</label>
+                    <input type="text" id="product-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-description">Description</label>
+                    <textarea id="product-description" name="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Price</label>
+                    <input type="number" id="product-price" name="price" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-category">Category</label>
+                    <input type="text" id="product-category" name="category" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-inventory">Initial Stock</label>
+                    <input type="number" id="product-inventory" name="inventory" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-sku">SKU</label>
+                    <input type="text" id="product-sku" name="sku" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Product</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeProductModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="order-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeOrderModal()">&times;</span>
+            <h2>Order Details</h2>
+            <div id="order-details">
+                <!-- Order details will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Required Scripts -->
+    <script src="pos-system.js"></script>
+    <script src="admin.js"></script>
+
+    <script>
+        // Initialize admin dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the admin dashboard
+            console.log('Admin Dashboard Loading...');
+            
+            // Auto-refresh dashboard every 30 seconds
+            setInterval(function() {
+                if (document.querySelector('#dashboard').classList.contains('active')) {
+                    updateDashboardStats();
+                }
+            }, 30000);
+        });
+    </script>
+</body>
+</html>
