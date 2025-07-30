@@ -1,0 +1,733 @@
+/**
+ * Universal POS Payment UI Styles
+ * Secure, modern payment form styling
+ * Version: 1.0.0
+ */
+
+/* Payment Modal Styles */
+.pos-payment-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100000;
+    display: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.pos-payment-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+}
+
+.pos-payment-container {
+    position: relative;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    margin: 5vh auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    animation: posModalSlideIn 0.3s ease-out;
+}
+
+@keyframes posModalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Header */
+.pos-payment-header {
+    padding: 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pos-payment-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.pos-payment-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.pos-payment-close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Order Summary */
+.pos-payment-summary {
+    padding: 24px;
+    border-bottom: 1px solid #e9ecef;
+    background: #f8f9fa;
+}
+
+.pos-order-summary h4 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    color: #333;
+    font-weight: 600;
+}
+
+.pos-summary-items {
+    margin-bottom: 16px;
+}
+
+.pos-summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    color: #666;
+}
+
+.pos-item-name {
+    flex: 1;
+}
+
+.pos-item-total {
+    font-weight: 600;
+    color: #333;
+}
+
+.pos-summary-totals {
+    border-top: 1px solid #dee2e6;
+    padding-top: 12px;
+}
+
+.pos-summary-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    color: #666;
+}
+
+.pos-summary-total {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    border-top: 2px solid #333;
+    padding-top: 12px;
+    margin-top: 8px;
+}
+
+/* Payment Methods */
+.pos-payment-methods {
+    padding: 24px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.pos-payment-methods h3 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    color: #333;
+    font-weight: 600;
+}
+
+.pos-payment-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.pos-payment-option {
+    position: relative;
+}
+
+.pos-payment-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.pos-payment-option label {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: white;
+    font-weight: 500;
+}
+
+.pos-payment-option label:hover {
+    border-color: #007bff;
+    background: #f8f9ff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+}
+
+.pos-payment-option input[type="radio"]:checked + label {
+    border-color: #007bff;
+    background: #007bff;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.pos-payment-icon {
+    font-size: 24px;
+    margin-right: 12px;
+}
+
+.pos-payment-name {
+    font-size: 16px;
+}
+
+/* Payment Forms */
+.pos-payment-forms {
+    padding: 24px;
+    min-height: 200px;
+}
+
+.pos-payment-form {
+    animation: posFadeIn 0.3s ease-in;
+}
+
+@keyframes posFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Billing Details */
+.pos-billing-details h4 {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+.pos-form-row {
+    margin-bottom: 16px;
+}
+
+.pos-form-row input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: white;
+    box-sizing: border-box;
+}
+
+.pos-form-row input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.pos-form-row input::placeholder {
+    color: #999;
+}
+
+/* Card Element */
+.pos-card-element {
+    margin-top: 20px;
+}
+
+#stripe-card-element {
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#stripe-card-element.StripeElement--focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+#stripe-card-element.StripeElement--invalid {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+/* PayPal Button Container */
+#paypal-button-container {
+    margin-top: 20px;
+}
+
+/* Apple Pay Button */
+#apple-pay-button-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.apple-pay-button {
+    -webkit-appearance: -apple-pay-button;
+    -apple-pay-button-type: buy;
+    -apple-pay-button-style: black;
+    width: 200px;
+    height: 44px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Error Messages */
+.pos-error-message {
+    margin-top: 8px;
+    color: #dc3545;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Payment Actions */
+.pos-payment-actions {
+    padding: 24px;
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.pos-btn-primary,
+.pos-btn-secondary {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.pos-btn-primary {
+    background: #28a745;
+    color: white;
+}
+
+.pos-btn-primary:hover:not(:disabled) {
+    background: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.pos-btn-primary:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.pos-btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.pos-btn-secondary:hover {
+    background: #5a6268;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+/* Payment Status */
+.pos-payment-status {
+    padding: 24px;
+    text-align: center;
+}
+
+.pos-loading,
+.pos-success,
+.pos-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.pos-loading {
+    color: #007bff;
+}
+
+.pos-success {
+    color: #28a745;
+}
+
+.pos-error {
+    color: #dc3545;
+}
+
+/* Spinner Animation */
+.pos-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: posSpinner 1s linear infinite;
+}
+
+@keyframes posSpinner {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Success/Error Icons */
+.pos-success-icon,
+.pos-error-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.pos-success-icon {
+    background: #28a745;
+    color: white;
+}
+
+.pos-error-icon {
+    background: #dc3545;
+    color: white;
+}
+
+/* Security Info */
+.pos-security-info {
+    padding: 16px 24px;
+    background: #e8f5e8;
+    border-top: 1px solid #d1ecf1;
+}
+
+.pos-security-badges {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.pos-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: rgba(40, 167, 69, 0.1);
+    color: #155724;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .pos-payment-container {
+        width: 95%;
+        margin: 2vh auto;
+        max-height: 96vh;
+        border-radius: 8px;
+    }
+    
+    .pos-payment-header {
+        padding: 20px;
+    }
+    
+    .pos-payment-header h2 {
+        font-size: 20px;
+    }
+    
+    .pos-payment-summary,
+    .pos-payment-methods,
+    .pos-payment-forms,
+    .pos-payment-actions,
+    .pos-payment-status {
+        padding: 20px;
+    }
+    
+    .pos-payment-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .pos-payment-actions {
+        flex-direction: column-reverse;
+    }
+    
+    .pos-btn-primary,
+    .pos-btn-secondary {
+        width: 100%;
+        margin: 0;
+    }
+    
+    .pos-security-badges {
+        justify-content: center;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pos-payment-container {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        border-radius: 0;
+        max-height: none;
+    }
+    
+    .pos-payment-header,
+    .pos-payment-summary,
+    .pos-payment-methods,
+    .pos-payment-forms,
+    .pos-payment-actions,
+    .pos-payment-status {
+        padding: 16px;
+    }
+    
+    .pos-form-row input {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .pos-payment-container {
+        background: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .pos-payment-summary {
+        background: #1a202c;
+        border-color: #4a5568;
+    }
+    
+    .pos-order-summary h4,
+    .pos-summary-total,
+    .pos-item-total {
+        color: #e2e8f0;
+    }
+    
+    .pos-summary-item,
+    .pos-summary-line {
+        color: #a0aec0;
+    }
+    
+    .pos-payment-methods {
+        border-color: #4a5568;
+    }
+    
+    .pos-payment-methods h3 {
+        color: #e2e8f0;
+    }
+    
+    .pos-payment-option label {
+        background: #2d3748;
+        border-color: #4a5568;
+        color: #e2e8f0;
+    }
+    
+    .pos-payment-option label:hover {
+        background: #1a365d;
+        border-color: #3182ce;
+    }
+    
+    .pos-form-row input {
+        background: #2d3748;
+        border-color: #4a5568;
+        color: #e2e8f0;
+    }
+    
+    .pos-form-row input::placeholder {
+        color: #718096;
+    }
+    
+    .pos-form-row input:focus {
+        border-color: #3182ce;
+        box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+    }
+    
+    #stripe-card-element {
+        background: #2d3748;
+        border-color: #4a5568;
+    }
+    
+    .pos-payment-actions {
+        background: #1a202c;
+        border-color: #4a5568;
+    }
+    
+    .pos-security-info {
+        background: #1a202c;
+        border-color: #4a5568;
+    }
+    
+    .pos-badge {
+        background: rgba(72, 187, 120, 0.1);
+        color: #68d391;
+        border-color: rgba(72, 187, 120, 0.2);
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .pos-payment-option label {
+        border-width: 3px;
+    }
+    
+    .pos-payment-option input[type="radio"]:checked + label {
+        border-width: 4px;
+    }
+    
+    .pos-form-row input {
+        border-width: 3px;
+    }
+    
+    .pos-form-row input:focus {
+        border-width: 4px;
+        box-shadow: none;
+    }
+    
+    #stripe-card-element {
+        border-width: 3px;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+    
+    .pos-payment-container {
+        animation: none;
+    }
+    
+    .pos-payment-form {
+        animation: none;
+    }
+    
+    .pos-spinner {
+        animation: none;
+        border-top-color: transparent;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .pos-payment-modal {
+        display: none !important;
+    }
+}
+
+/* Focus Management for Accessibility */
+.pos-payment-modal:focus-within .pos-payment-container {
+    outline: 3px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Screen Reader Support */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Loading State Overlay */
+.pos-payment-container.loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Custom Scrollbar */
+.pos-payment-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.pos-payment-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.pos-payment-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.pos-payment-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Form Validation States */
+.pos-form-row.valid input {
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.pos-form-row.invalid input {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.pos-form-row .validation-message {
+    margin-top: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.pos-form-row.valid .validation-message {
+    color: #28a745;
+}
+
+.pos-form-row.invalid .validation-message {
+    color: #dc3545;
+}
