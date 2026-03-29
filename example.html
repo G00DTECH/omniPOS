@@ -95,12 +95,36 @@
         .product-image {
             width: 100%;
             height: 200px;
-            background: linear-gradient(45deg, #e2e8f0, #cbd5e1);
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            color: #64748b;
+            padding: 20px;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.3));
+        }
+
+        .product-image .fallback-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .product-image .fallback-icon svg {
+            width: 56px;
+            height: 56px;
+            stroke: rgba(102,126,234,0.5);
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .product-info {
@@ -297,6 +321,22 @@
     </style>
 </head>
 <body>
+    <!-- Global Navigation -->
+    <nav style="background: #1f2937; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 9999;">
+        <a href="index.html" style="color: #fff; text-decoration: none; font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+            <span style="background: linear-gradient(135deg, #667eea, #764ba2); padding: 6px 8px; border-radius: 6px; display:inline-flex; align-items:center; justify-content:center; line-height:1;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
+            Universal POS
+        </a>
+        <div style="display: flex; gap: 20px; align-items: center;">
+            <a href="index.html" style="color: #9ca3af; text-decoration: none; font-size: 14px;">Home</a>
+            <a href="example.html" style="color: #667eea; text-decoration: none; font-size: 14px; font-weight: 600;">Demo</a>
+            <a href="admin.html" style="color: #9ca3af; text-decoration: none; font-size: 14px;">Admin</a>
+            <button onclick="document.querySelector('.pos-cart-toggle')?.click()" style="background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>View Cart
+            </button>
+        </div>
+    </nav>
+
     <div class="demo-container">
         <!-- Header -->
         <div class="demo-header">
@@ -313,27 +353,27 @@
                 
                 <div class="features-list">
                     <div class="feature-card">
-                        <h3>🏷️ Product Detection</h3>
+                        <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>Product Detection</h3>
                         <p>Automatically detects products using HTML data attributes. No manual registration required.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>📦 Inventory Management</h3>
+                        <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>Inventory Management</h3>
                         <p>Real-time inventory tracking with automatic stock updates and low stock warnings.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>🛒 Shopping Cart</h3>
+                        <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Shopping Cart</h3>
                         <p>Full-featured shopping cart with quantity controls, item management, and persistent storage.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>💳 Payment Processing</h3>
+                        <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Payment Processing</h3>
                         <p>Secure payment processing with Stripe, PayPal, Apple Pay, and Google Pay integration.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>💾 Local Storage</h3>
+                        <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>Local Storage</h3>
                         <p>Persistent cart and inventory data using localStorage with optional external API sync.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>📱 Mobile Responsive</h3>
+                        <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>Mobile Responsive</h3>
                         <p>Fully responsive design that works perfectly on desktop, tablet, and mobile devices.</p>
                     </div>
                 </div>
@@ -353,8 +393,9 @@
                          data-pos-inventory="5"
                          data-pos-category="electronics"
                          data-pos-description="High-performance laptop perfect for professionals and creatives"
-                         data-pos-sku="ELEC-LAP-001">
-                        <div class="product-image">💻</div>
+                         data-pos-sku="ELEC-LAP-001"
+                         data-pos-image="images/laptop-icon.png">
+                        <div class="product-image"><img src="images/laptop-icon.png" alt="Professional Laptop" onerror="this.style.display='none';this.parentElement.innerHTML='<span class=fallback-icon><svg viewBox=&quot;0 0 24 24&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;><rect x=2 y=3 width=20 height=14 rx=2/><line x1=2 y1=20 x2=22 y2=20/></svg></span>';"></div>
                         <div class="product-info">
                             <div class="product-name">Professional Laptop</div>
                             <div class="product-description">High-performance laptop perfect for professionals and creatives</div>
@@ -373,8 +414,9 @@
                          data-pos-inventory="12"
                          data-pos-category="electronics"
                          data-pos-description="Latest smartphone with advanced camera and AI features"
-                         data-pos-sku="ELEC-PHN-002">
-                        <div class="product-image">📱</div>
+                         data-pos-sku="ELEC-PHN-002"
+                         data-pos-image="images/phone-icon.png">
+                        <div class="product-image"><img src="images/phone-icon.png" alt="Smartphone X" onerror="this.style.display='none';this.parentElement.innerHTML='<span class=fallback-icon><svg viewBox=&quot;0 0 24 24&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;><rect x=5 y=2 width=14 height=20 rx=2/><line x1=12 y1=18 x2=12.01 y2=18/></svg></span>';"></div>
                         <div class="product-info">
                             <div class="product-name">Smartphone X</div>
                             <div class="product-description">Latest smartphone with advanced camera and AI features</div>
@@ -393,8 +435,9 @@
                          data-pos-inventory="8"
                          data-pos-category="electronics"
                          data-pos-description="Noise-canceling headphones with studio-quality sound"
-                         data-pos-sku="ELEC-AUD-003">
-                        <div class="product-image">🎧</div>
+                         data-pos-sku="ELEC-AUD-003"
+                         data-pos-image="images/headphones-icon.png">
+                        <div class="product-image"><img src="images/headphones-icon.png" alt="Pro Headphones" onerror="this.style.display='none';this.parentElement.innerHTML='<span class=fallback-icon><svg viewBox=&quot;0 0 24 24&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;><path d=&quot;M3 18v-6a9 9 0 0 1 18 0v6&quot;/><path d=&quot;M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z&quot;/></svg></span>';"></div>
                         <div class="product-info">
                             <div class="product-name">Pro Headphones</div>
                             <div class="product-description">Noise-canceling headphones with studio-quality sound</div>
@@ -414,8 +457,9 @@
                          data-pos-inventory="15"
                          data-pos-category="clothing"
                          data-pos-description="Comfortable premium cotton hoodie in various colors"
-                         data-pos-sku="CLTH-HDD-001">
-                        <div class="product-image">👕</div>
+                         data-pos-sku="CLTH-HDD-001"
+                         data-pos-image="images/shirt-icon.png">
+                        <div class="product-image"><img src="images/shirt-icon.png" alt="Premium Hoodie" onerror="this.style.display='none';this.parentElement.innerHTML='<span class=fallback-icon><svg viewBox=&quot;0 0 24 24&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;><rect x=3 y=3 width=18 height=18 rx=2/><circle cx=8.5 cy=8.5 r=1.5/><polyline points=&quot;21 15 16 10 5 21&quot;/></svg></span>';"></div>
                         <div class="product-info">
                             <div class="product-name">Premium Hoodie</div>
                             <div class="product-description">Comfortable premium cotton hoodie in various colors</div>
@@ -434,8 +478,9 @@
                          data-pos-inventory="20"
                          data-pos-category="clothing"
                          data-pos-description="Premium denim jeans with perfect fit and comfort"
-                         data-pos-sku="CLTH-JNS-002">
-                        <div class="product-image">👖</div>
+                         data-pos-sku="CLTH-JNS-002"
+                         data-pos-image="images/pants-icon.png">
+                        <div class="product-image"><img src="images/pants-icon.png" alt="Designer Jeans" onerror="this.style.display='none';this.parentElement.innerHTML='<span class=fallback-icon><svg viewBox=&quot;0 0 24 24&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;><rect x=3 y=3 width=18 height=18 rx=2/><circle cx=8.5 cy=8.5 r=1.5/><polyline points=&quot;21 15 16 10 5 21&quot;/></svg></span>';"></div>
                         <div class="product-info">
                             <div class="product-name">Designer Jeans</div>
                             <div class="product-description">Premium denim jeans with perfect fit and comfort</div>
@@ -455,8 +500,9 @@
                          data-pos-inventory="2"
                          data-pos-category="accessories"
                          data-pos-description="Exclusive limited edition smartwatch with premium materials"
-                         data-pos-sku="ACC-WTC-001">
-                        <div class="product-image">⌚</div>
+                         data-pos-sku="ACC-WTC-001"
+                         data-pos-image="images/watch-icon.png">
+                        <div class="product-image"><img src="images/watch-icon.png" alt="Limited Edition Watch" onerror="this.style.display='none';this.parentElement.innerHTML='<span class=fallback-icon>⌚</span>';"></div>
                         <div class="product-info">
                             <div class="product-name">Limited Edition Watch</div>
                             <div class="product-description">Exclusive limited edition smartwatch with premium materials</div>
@@ -548,27 +594,195 @@
                 </div>
             </div>
 
+            <!-- Checkout Flow Demo -->
+            <div class="demo-section" id="checkout-demo">
+                <h2>Checkout Flow Demo</h2>
+                <p>Experience the complete checkout process. Add items to your cart above, then follow these steps to complete a demo purchase.</p>
+
+                <div class="checkout-flow-container" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 32px; margin-top: 24px;">
+                    <!-- Checkout Steps Visualization -->
+                    <div class="checkout-steps" style="display: flex; justify-content: space-between; margin-bottom: 32px; position: relative;">
+                        <div style="position: absolute; top: 20px; left: 10%; right: 10%; height: 2px; background: #374151; z-index: 0;"></div>
+
+                        <div class="step" style="text-align: center; z-index: 1; flex: 1;">
+                            <div id="step1-icon" style="width: 40px; height: 40px; background: #667eea; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-size: 18px; color: #fff;">1</div>
+                            <div style="color: #fff; font-weight: 600; font-size: 14px;">Cart Review</div>
+                            <div style="color: #9ca3af; font-size: 12px;">Review items</div>
+                        </div>
+                        <div class="step" style="text-align: center; z-index: 1; flex: 1;">
+                            <div id="step2-icon" style="width: 40px; height: 40px; background: #374151; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-size: 18px; color: #9ca3af;">2</div>
+                            <div style="color: #9ca3af; font-weight: 600; font-size: 14px;">Shipping</div>
+                            <div style="color: #6b7280; font-size: 12px;">Enter address</div>
+                        </div>
+                        <div class="step" style="text-align: center; z-index: 1; flex: 1;">
+                            <div id="step3-icon" style="width: 40px; height: 40px; background: #374151; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-size: 18px; color: #9ca3af;">3</div>
+                            <div style="color: #9ca3af; font-weight: 600; font-size: 14px;">Payment</div>
+                            <div style="color: #6b7280; font-size: 12px;">Select method</div>
+                        </div>
+                        <div class="step" style="text-align: center; z-index: 1; flex: 1;">
+                            <div id="step4-icon" style="width: 40px; height: 40px; background: #374151; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-size: 18px; color: #9ca3af;">4</div>
+                            <div style="color: #9ca3af; font-weight: 600; font-size: 14px;">Complete</div>
+                            <div style="color: #6b7280; font-size: 12px;">Order confirmed</div>
+                        </div>
+                    </div>
+
+                    <!-- Cart Summary Panel -->
+                    <div id="checkout-cart-summary" style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+                        <h4 style="color: #fff; margin: 0 0 16px 0; display: flex; align-items: center; gap: 8px;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Your Cart
+                        </h4>
+                        <div id="checkout-items" style="max-height: 200px; overflow-y: auto; margin-bottom: 16px;">
+                            <p style="color: #9ca3af; text-align: center; padding: 20px;">Your cart is empty. Add some products above to try the checkout demo.</p>
+                        </div>
+                        <div id="checkout-totals" style="border-top: 1px solid #374151; padding-top: 16px; display: none;">
+                            <div style="display: flex; justify-content: space-between; color: #9ca3af; margin-bottom: 8px;">
+                                <span>Subtotal:</span>
+                                <span id="checkout-subtotal">$0.00</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; color: #9ca3af; margin-bottom: 8px;">
+                                <span>Tax (8%):</span>
+                                <span id="checkout-tax">$0.00</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; color: #9ca3af; margin-bottom: 12px;">
+                                <span>Shipping:</span>
+                                <span id="checkout-shipping">$9.99</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; color: #fff; font-size: 18px; font-weight: 700;">
+                                <span>Total:</span>
+                                <span id="checkout-total">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Methods Display -->
+                    <div style="margin-bottom: 24px;">
+                        <h4 style="color: #fff; margin: 0 0 16px 0;">Supported Payment Methods</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px;">
+                            <div style="background: #fff; padding: 16px; border-radius: 8px; text-align: center;">
+                                <div style="margin-bottom: 8px; display:flex; justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+                                <div style="font-size: 12px; font-weight: 600; color: #1f2937;">Credit Card</div>
+                            </div>
+                            <div style="background: #fff; padding: 16px; border-radius: 8px; text-align: center;">
+                                <div style="margin-bottom: 8px; display:flex; justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></div>
+                                <div style="font-size: 12px; font-weight: 600; color: #1f2937;">PayPal</div>
+                            </div>
+                            <div style="background: #fff; padding: 16px; border-radius: 8px; text-align: center;">
+                                <div style="margin-bottom: 8px; display:flex; justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+                                <div style="font-size: 12px; font-weight: 600; color: #1f2937;">Apple Pay</div>
+                            </div>
+                            <div style="background: #fff; padding: 16px; border-radius: 8px; text-align: center;">
+                                <div style="margin-bottom: 8px; display:flex; justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+                                <div style="font-size: 12px; font-weight: 600; color: #1f2937;">Google Pay</div>
+                            </div>
+                            <div style="background: #fff; padding: 16px; border-radius: 8px; text-align: center;">
+                                <div style="margin-bottom: 8px; display:flex; justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+                                <div style="font-size: 12px; font-weight: 600; color: #1f2937;">Square</div>
+                            </div>
+                            <div style="background: #fff; padding: 16px; border-radius: 8px; text-align: center;">
+                                <div style="margin-bottom: 8px; display:flex; justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1f2937" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                                <div style="font-size: 12px; font-weight: 600; color: #1f2937;">Authorize.Net</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                        <button onclick="openCartForCheckout()" style="flex: 1; min-width: 200px; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border: none; padding: 16px 32px; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 25px rgba(102,126,234,0.4)'" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:7px;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Open Cart &amp; Checkout
+                        </button>
+                        <button onclick="simulateCheckout()" id="simulate-checkout-btn" style="flex: 1; min-width: 200px; background: #10b981; color: #fff; border: none; padding: 16px 32px; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; opacity: 0.5; transition: transform 0.2s, box-shadow 0.2s;" disabled onmouseover="if(!this.disabled){this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 25px rgba(16,185,129,0.4)'}" onmouseout="this.style.transform='none';this.style.boxShadow='none'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:7px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Simulate Demo Checkout
+                        </button>
+                    </div>
+
+                    <!-- Demo Notice -->
+                    <div style="margin-top: 20px; padding: 16px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px;">
+                        <p style="color: #f59e0b; margin: 0; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                            <span><strong>Demo Mode:</strong> This is a demonstration. No real payments will be processed. In production, connect your payment processor API keys.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <!-- API Integration -->
             <div class="demo-section">
                 <h2>API Integration</h2>
                 <p>The system can integrate with your existing backend API for order processing, inventory sync, and customer management.</p>
-                
+
                 <div class="features-list">
                     <div class="feature-card">
-                        <h3>🔄 Real-time Sync</h3>
+                        <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.1"/></svg>Real-time Sync</h3>
                         <p>Sync inventory and cart data with your backend systems in real-time.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>📊 Order Management</h3>
+                        <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Order Management</h3>
                         <p>Send complete order data to your API endpoint for processing and fulfillment.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>🔐 Secure Checkout</h3>
+                        <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Secure Checkout</h3>
                         <p>Integrate with payment processors and handle secure transactions.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>📈 Analytics</h3>
+                        <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>Analytics</h3>
                         <p>Track user behavior, cart abandonment, and sales metrics.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Detector Demo -->
+            <div class="demo-section">
+                <h2>Universal Product Detector</h2>
+                <p>The Product Detector automatically finds products on any webpage using Schema.org data, data attributes, and intelligent heuristics. Works on Shopify, WooCommerce, Wix, Squarespace, and custom sites.</p>
+
+                <div class="detector-demo" style="background: #1a1a2e; border-radius: 12px; padding: 24px; margin-top: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="color: #fff; margin: 0;">Detected Products</h3>
+                        <button onclick="runProductDetector()" style="background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Scan Page
+                        </button>
+                    </div>
+
+                    <div id="detector-results" style="background: #16213e; border-radius: 8px; padding: 16px; max-height: 300px; overflow-y: auto;">
+                        <p style="color: #9ca3af; text-align: center;">Click "Scan Page" to detect products on this page</p>
+                    </div>
+
+                    <div id="detector-stats" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px;">
+                        <div style="background: #16213e; padding: 12px; border-radius: 8px; text-align: center;">
+                            <div id="stat-total" style="font-size: 24px; font-weight: 700; color: #667eea;">-</div>
+                            <div style="font-size: 12px; color: #9ca3af;">Total</div>
+                        </div>
+                        <div style="background: #16213e; padding: 12px; border-radius: 8px; text-align: center;">
+                            <div id="stat-high" style="font-size: 24px; font-weight: 700; color: #10b981;">-</div>
+                            <div style="font-size: 12px; color: #9ca3af;">High Conf.</div>
+                        </div>
+                        <div style="background: #16213e; padding: 12px; border-radius: 8px; text-align: center;">
+                            <div id="stat-price" style="font-size: 24px; font-weight: 700; color: #f59e0b;">-</div>
+                            <div style="font-size: 12px; color: #9ca3af;">With Price</div>
+                        </div>
+                        <div style="background: #16213e; padding: 12px; border-radius: 8px; text-align: center;">
+                            <div id="stat-image" style="font-size: 24px; font-weight: 700; color: #ec4899;">-</div>
+                            <div style="font-size: 12px; color: #9ca3af;">With Image</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features-list" style="margin-top: 24px;">
+                    <div class="feature-card">
+                        <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Smart Detection</h3>
+                        <p>Uses Schema.org JSON-LD, microdata, data attributes, and DOM heuristics for maximum compatibility.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Confidence Scoring</h3>
+                        <p>Each product gets a confidence score based on multiple signals - filter out false positives automatically.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/></svg>Browser Extension</h3>
+                        <p>Install the extension for Learn Mode - click to teach the detector on any custom site.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Platform Adapters</h3>
+                        <p>Built-in support for Shopify, WooCommerce, Wix, Squarespace, BigCommerce, and Magento.</p>
                     </div>
                 </div>
             </div>
@@ -583,9 +797,13 @@
 
     <!-- Include the POS System -->
     <script src="pos-system.js"></script>
-    
+
     <!-- Include Payment Integration -->
     <script src="pos-payments.js"></script>
+
+    <!-- Include Product Detector -->
+    <script src="pos-product-detector.js"></script>
+    <script src="pos-platform-adapters.js"></script>
     
     <!-- Demo Control Functions -->
     <script>
@@ -644,6 +862,173 @@
                 window.universalPOS.scanProducts();
                 alert('Products rescanned successfully');
             }
+        }
+
+        // Checkout Flow Demo Functions
+        function updateCheckoutSummary() {
+            if (!window.universalPOS) return;
+
+            const cart = window.universalPOS.getCart();
+            const totals = window.universalPOS.calculateTotals();
+            const itemsContainer = document.getElementById('checkout-items');
+            const totalsContainer = document.getElementById('checkout-totals');
+            const simulateBtn = document.getElementById('simulate-checkout-btn');
+
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = '<p style="color: #9ca3af; text-align: center; padding: 20px;">Your cart is empty. Add some products above to try the checkout demo.</p>';
+                totalsContainer.style.display = 'none';
+                simulateBtn.disabled = true;
+                simulateBtn.style.opacity = '0.5';
+                return;
+            }
+
+            // Show cart items
+            itemsContainer.innerHTML = cart.map(item => `
+                <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 8px;">
+                    <div style="width: 40px; height: 40px; background: #0f0f1a; border-radius: 6px; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#667eea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="color: #fff; font-weight: 500; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.name}</div>
+                        <div style="color: #6b7280; font-size: 12px;">Qty: ${item.quantity}</div>
+                    </div>
+                    <div style="color: #10b981; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</div>
+                </div>
+            `).join('');
+
+            // Show totals
+            totalsContainer.style.display = 'block';
+            document.getElementById('checkout-subtotal').textContent = '$' + totals.subtotal.toFixed(2);
+            document.getElementById('checkout-tax').textContent = '$' + totals.tax.toFixed(2);
+            document.getElementById('checkout-shipping').textContent = totals.subtotal > 100 ? 'FREE' : '$' + totals.shipping.toFixed(2);
+            document.getElementById('checkout-total').textContent = '$' + totals.total.toFixed(2);
+
+            // Enable simulate button
+            simulateBtn.disabled = false;
+            simulateBtn.style.opacity = '1';
+        }
+
+        function openCartForCheckout() {
+            // Click the cart toggle button
+            const cartToggle = document.querySelector('.pos-cart-toggle');
+            if (cartToggle) {
+                cartToggle.click();
+            }
+        }
+
+        async function simulateCheckout() {
+            if (!window.universalPOS) return;
+
+            const cart = window.universalPOS.getCart();
+            if (cart.length === 0) {
+                alert('Please add items to your cart first!');
+                return;
+            }
+
+            const totals = window.universalPOS.calculateTotals();
+            const steps = ['step1-icon', 'step2-icon', 'step3-icon', 'step4-icon'];
+
+            // Animate through steps
+            for (let i = 0; i < steps.length; i++) {
+                await new Promise(resolve => setTimeout(resolve, 800));
+                const icon = document.getElementById(steps[i]);
+                icon.style.background = '#667eea';
+                icon.style.color = '#fff';
+                icon.innerHTML = i < steps.length - 1 ? '✓' : '✓';
+            }
+
+            // Create demo order
+            const orderId = 'ORD-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
+
+            // Store order in localStorage (same format admin expects)
+            const orders = JSON.parse(localStorage.getItem('universal-pos-orders') || '[]');
+            orders.push({
+                id: orderId,
+                timestamp: new Date().toISOString(),
+                cart: cart.map(item => ({
+                    id: item.id,
+                    name: item.name,
+                    sku: item.sku || 'N/A',
+                    price: item.price,
+                    quantity: item.quantity,
+                    image: item.image
+                })),
+                totals: {
+                    subtotal: totals.subtotal,
+                    tax: totals.tax,
+                    shipping: totals.shipping,
+                    total: totals.total
+                },
+                status: 'completed'
+            });
+            localStorage.setItem('universal-pos-orders', JSON.stringify(orders));
+
+            // Show success message
+            await new Promise(resolve => setTimeout(resolve, 500));
+            alert(`Demo Order Complete!\n\nOrder ID: ${orderId}\nTotal: $${totals.total.toFixed(2)}\nItems: ${totals.itemCount}\n\nView this order in the Admin Dashboard!`);
+
+            // Clear cart
+            window.universalPOS.clearCart();
+
+            // Reset step indicators
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            steps.forEach((stepId, i) => {
+                const icon = document.getElementById(stepId);
+                icon.style.background = i === 0 ? '#667eea' : '#374151';
+                icon.style.color = i === 0 ? '#fff' : '#9ca3af';
+                icon.innerHTML = i + 1;
+            });
+
+            updateCheckoutSummary();
+        }
+
+        // Update checkout summary when cart changes
+        document.addEventListener('pos:item-added', updateCheckoutSummary);
+        document.addEventListener('pos:item-removed', updateCheckoutSummary);
+        document.addEventListener('pos:quantity-changed', updateCheckoutSummary);
+        document.addEventListener('pos:cart-cleared', updateCheckoutSummary);
+
+        // Initial update
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(updateCheckoutSummary, 500);
+        });
+
+        // Product Detector Demo
+        function runProductDetector() {
+            if (!window.ProductDetector) {
+                document.getElementById('detector-results').innerHTML = '<p style="color: #ef4444;">Product Detector not loaded</p>';
+                return;
+            }
+
+            const products = ProductDetector.scan();
+            const stats = ProductDetector.getStats(products);
+
+            // Update stats
+            document.getElementById('stat-total').textContent = stats.total;
+            document.getElementById('stat-high').textContent = stats.highConfidence;
+            document.getElementById('stat-price').textContent = stats.withPrice;
+            document.getElementById('stat-image').textContent = stats.withImage;
+
+            // Display results
+            const resultsDiv = document.getElementById('detector-results');
+            if (products.length === 0) {
+                resultsDiv.innerHTML = '<p style="color: #9ca3af; text-align: center;">No products detected</p>';
+                return;
+            }
+
+            resultsDiv.innerHTML = products.map(p => `
+                <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #1a1a2e; border-radius: 8px; margin-bottom: 8px;">
+                    ${p.image ? `<img src="${p.image}" style="width: 50px; height: 50px; object-fit: contain; border-radius: 6px; background: #0f0f1a;" onerror="this.style.display='none'">` : '<div style="width:50px;height:50px;background:#0f0f1a;border-radius:6px;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#667eea" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>'}
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="color: #fff; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${p.name}</div>
+                        <div style="color: #10b981; font-size: 14px;">${p.price > 0 ? '$' + p.price.toFixed(2) : 'No price'}</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="background: ${p.confidence >= 0.7 ? '#10b981' : p.confidence >= 0.4 ? '#f59e0b' : '#ef4444'}; color: #fff; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">
+                            ${Math.round(p.confidence * 100)}%
+                        </div>
+                        <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">${p.source}</div>
+                    </div>
+                </div>
+            `).join('');
         }
 
         // Event listeners for POS system events
